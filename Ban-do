@@ -1,0 +1,30 @@
+            marker = new VectorLayer({
+                source: vectorSource
+            });
+
+            map.addLayer(marker);
+        }
+<?php if (isset($this->bds) && $this->bds->bds_lat != 0 && $this->bds->bds_lng != 0): ?>
+            function setMarker() {
+                let feature = new Feature({
+                    type: 'icon',
+                    geometry: new ol.geom.Point(fromLonLat(mapcenter)),
+                    name: 'Marker',
+                });
+                feature.setStyle(iconStyle);
+                marker = new VectorSource({
+                    features: [feature]
+                });
+
+                map.addLayer(new VectorLayer({
+                    source: marker
+                }));
+            }
+            setMarker();
+<?php endif; ?>
+
+        $('.btn-geo').on('click', function (evt) {
+            geolocation.setTracking(true);
+        });
+    });
+</script>
